@@ -50,3 +50,9 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+.env
+backend/.env.local
+backend/vendor/
+backend/var/*
+!backend/var/.gitkeep
+backend/public/uploads/

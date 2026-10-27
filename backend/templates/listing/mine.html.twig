@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>{{ 'nav.my_listings'|trans }}</h1>
+<table class="table">
+    {% for l in listings %}
+        <tr>
+            <td><a href="{{ path('app_listing_show', {_locale: app.request.locale, id: l.id}) }}">{{ l.title }}</a></td>
+            <td>{{ ('status.' ~ l.status)|trans }}</td>
+        </tr>
+    {% else %}
+        <tr><td>{{ 'search.none'|trans }}</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
