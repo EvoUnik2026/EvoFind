@@ -1,0 +1,16 @@
+parameters:
+    app.supported_locales: ['nl', 'en', 'ar']
+    app.upload_dir: '%kernel.project_dir%/public/uploads'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        bind:
+            $uploadDir: '%app.upload_dir%'
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Entity/'
+            - '../src/Kernel.php'

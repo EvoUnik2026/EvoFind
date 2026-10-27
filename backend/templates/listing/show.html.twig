@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ listing.title }}{% endblock %}
+{% block body %}
+{% if not listing.approved %}<div class="alert alert-warning">{{ ('status.' ~ listing.status)|trans }}</div>{% endif %}
+<h1>{{ listing.title }}</h1>
+{% if listing.image %}<img class="img-fluid mb-3" style="max-height:400px" src="{{ asset('uploads/' ~ listing.image) }}" alt="">{% endif %}
+<p class="fs-4">€ {{ listing.price|number_format(2, ',', '.') }}</p>
+<p>{{ listing.description|nl2br }}</p>
+<dl>
+    <dt>{{ 'listing.category'|trans }}</dt><dd>{{ listing.category.getName(app.request.locale) }}</dd>
+    <dt>{{ 'listing.city'|trans }}</dt><dd>{{ listing.city.name }}</dd>
+    <dt>{{ 'listing.condition'|trans }}</dt><dd>{{ ('condition.' ~ listing.itemCondition)|trans }}</dd>
+    <dt>{{ 'listing.payment'|trans }}</dt><dd>{% for o in listing.paymentOptions %}{{ ('payment.' ~ o)|trans }}{{ not loop.last ? ', ' }}{% endfor %}</dd>
+    <dt>{{ 'listing.delivery'|trans }}</dt><dd>{% for o in listing.deliveryOptions %}{{ ('delivery.' ~ o)|trans }}{{ not loop.last ? ', ' }}{% endfor %}</dd>
+    <dt>{{ 'listing.seller'|trans }}</dt><dd>{{ listing.owner.name }}</dd>
+</dl>
+{% endblock %}

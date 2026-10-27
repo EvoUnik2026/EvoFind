@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<form class="row g-2 mb-4" method="get">
+    <div class="col-md-4"><input class="form-control" name="q" value="{{ app.request.query.get('q') }}" placeholder="{{ 'search.placeholder'|trans }}"></div>
+    <div class="col-md-3">
+        <select class="form-select" name="category">
+            <option value="">{{ 'search.all_categories'|trans }}</option>
+            {% for c in categories %}<option value="{{ c.id }}" {{ app.request.query.getInt('category') == c.id ? 'selected' }}>{{ c.getName(app.request.locale) }}</option>{% endfor %}
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select class="form-select" name="city">
+            <option value="">{{ 'search.all_cities'|trans }}</option>
+            {% for c in cities %}<option value="{{ c.id }}" {{ app.request.query.getInt('city') == c.id ? 'selected' }}>{{ c.name }}</option>{% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2"><button class="btn btn-primary w-100">{{ 'search.submit'|trans }}</button></div>
+</form>
+<div class="row g-3">
+    {% for l in listings %}
+        <div class="col-md-3">
+            <a class="card h-100 text-decoration-none" href="{{ path('app_listing_show', {_locale: app.request.locale, id: l.id}) }}">
+                {% if l.image %}<img class="card-img-top" src="{{ asset('uploads/' ~ l.image) }}" alt="">{% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ l.title }}</h5>
+                    <p class="card-text">€ {{ l.price|number_format(2, ',', '.') }}<br><small class="text-muted">{{ l.city.name }}</small></p>
+                </div>
+            </a>
+        </div>
+    {% else %}
+        <p>{{ 'search.none'|trans }}</p>
+    {% endfor %}
+</div>
+{% endblock %}

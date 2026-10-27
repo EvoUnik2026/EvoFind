@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>{{ 'nav.new_listing'|trans }}</h1>
+<p class="text-muted">{{ 'listing.moderation_notice'|trans }}</p>
+{{ form(form) }}
+{% endblock %}
